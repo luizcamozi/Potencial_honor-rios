@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Potencial de Honorários · Valim Dias</title>
+<style>
+:root{
+  --bg:#eef1f6; --panel:#ffffff; --panel2:#f6f8fb; --ink:#15202e; --muted:#66738a;
+  --line:#e3e8f1; --brand:#16365c; --brand2:#2f6ea8; --blue:#4a9bd4; --gold:#c8a04a;
+  --good:#178f60; --bad:#cf4055;
+  --shadow:0 1px 2px rgba(16,32,54,.05),0 8px 22px rgba(16,32,54,.07);
+}
+:root[data-theme="dark"]{
+  --bg:#0d1420; --panel:#151f2e; --panel2:#1a2536; --ink:#e9eef6; --muted:#94a2b6;
+  --line:#26354b; --brand:#8db8de; --brand2:#5da3d8;
+  --shadow:0 1px 3px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:16px 20px 60px}
+
+header.top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;padding:4px 0 14px}
+.logo-chip{background:linear-gradient(135deg,var(--brand),var(--brand2));border-radius:12px;padding:9px 16px;box-shadow:var(--shadow);display:flex;align-items:center;color:#fff;font-weight:800;font-size:15px;letter-spacing:.4px}
+.ttl h1{font-size:18px;margin:0;font-weight:800;letter-spacing:-.2px}
+.ttl .sub{color:var(--muted);font-size:12px;margin-top:1px}
+.actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font-family:inherit;font-size:13px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 13px;border-radius:9px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:7px;transition:.15s}
+button:hover{border-color:var(--brand2);color:var(--brand2)}
+.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border:none}
+.btn-primary:hover{color:#fff;filter:brightness(1.1)}
+.status{font-size:11.5px;color:var(--muted);width:100%}
+.status b{color:var(--ink)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:5px;vertical-align:middle}
+.dot.bad{background:var(--bad)}
+.dot.load{background:var(--gold)}
+
+.hero{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:16px}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px 12px;box-shadow:var(--shadow);border-top:3px solid var(--brand2)}
+.pcard.geral{border-top-color:var(--gold);background:linear-gradient(135deg,var(--panel),var(--panel2))}
+.pcard .p-lab{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.pcard .p-val{font-size:22px;font-weight:800;letter-spacing:-.5px;margin-top:8px;color:var(--brand)}
+:root[data-theme="dark"] .pcard .p-val{color:var(--ink)}
+.pcard .p-sub{font-size:11.5px;margin-top:8px;color:var(--muted);display:flex;justify-content:space-between}
+.pcard .p-sub b{color:var(--ink);font-weight:700}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:16px}
+.card h2{font-size:14.5px;margin:0 0 2px;font-weight:800}
+.card .hint{font-size:12px;color:var(--muted);margin-bottom:12px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:800}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.subtotal td{font-weight:800;background:var(--panel2);border-top:1.5px solid var(--line)}
+tr.subtotal td.tp{color:var(--brand)}
+.tblwrap{overflow:auto;border:1px solid var(--line);border-radius:10px}
+.empty{color:var(--muted);font-size:12.5px;padding:20px 4px;text-align:center}
+.err{color:var(--bad);font-size:12.5px;padding:10px 4px}
+
+.grpname{display:flex;align-items:center;gap:8px;margin:18px 0 8px}
+.grpname:first-child{margin-top:0}
+.grpname .chip{background:var(--brand2);color:#fff;font-size:10.5px;font-weight:800;padding:3px 10px;border-radius:20px;letter-spacing:.3px}
+
+footer{color:var(--muted);font-size:11px;text-align:center;padding-top:6px}
+@media (max-width:820px){.hero{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="logo-chip">VD</div>
+    <div class="ttl">
+      <h1>Potencial de Honorários</h1>
+      <div class="sub">Valim Dias · dados ao vivo da planilha</div>
+    </div>
+    <div class="actions">
+      <button id="btnTheme">🌙</button>
+      <button id="btnRefresh" class="btn-primary">↻ Atualizar</button>
+    </div>
+    <div class="status" id="status"><span class="dot load"></span>Carregando planilha…</div>
+  </header>
+
+  <div class="hero" id="hero"></div>
+
+  <div class="card">
+    <h2>Detalhamento por tipo e empreendimento</h2>
+    <div class="hint">Valores lidos diretamente das colunas F (Total), G (20% de Honorários) e H (Eficiência 30%) da planilha.</div>
+    <div id="tables"></div>
+  </div>
+
+  <footer>Fonte: Google Sheets — atualiza automaticamente ao carregar a página. Use "Atualizar" para forçar uma nova leitura.</footer>
+</div>
+
+<script>
+/* ===================== CONFIG ===================== */
+const SHEET_ID = '1mgYzfjQmpL88q5R5jTlP3kU0i2IwPUcfUPm76e534zw';
+const GID = '0';
+const CSV_URLS = [
+  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${GID}`,
+  `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`
+];
+
+const BRL = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+const INT = new Intl.NumberFormat('pt-BR');
+const $ = s => document.querySelector(s);
+
+/* ===================== FETCH ===================== */
+async function fetchSheetCSV(){
+  let lastErr = null;
+  for(const url of CSV_URLS){
+    try{
+      const response = await fetch(url, {cache:'no-store'});
+      const text = await response.text();
+      const pareceHTML = /<html|accounts\.google\.com|sign in/i.test(text.slice(0,500));
+      console.log('URL:',url,'STATUS:',response.status,'TAMANHO:',text.length);
+      if(!response.ok || pareceHTML){
+        lastErr = 'A planilha retornou uma página de login/HTML em vez de CSV. Confirme o compartilhamento como "Qualquer pessoa com o link — Leitor".';
+        continue;
+      }
+      return text;
+    }catch(e){
+      console.error('Falha em', url, e);
+      lastErr = 'Não foi possível conectar à planilha (bloqueio de rede ou CORS).';
+    }
+  }
+  throw new Error(lastErr || 'Falha desconhecida ao buscar a planilha.');
+}
+
+/* ===================== PARSER CSV REAL ===================== */
+function parseCSV(text){
+  const rows = []; let row = []; let field = ''; let inQuotes = false;
+  for(let i=0;i<text.length;i++){
+    const c = text[i], next = text[i+1];
+    if(inQuotes){
+      if(c === '"' && next === '"'){ field += '"'; i++; }
+      else if(c === '"'){ inQuotes = false; }
+      else field += c;
+    }else{
+      if(c === '"') inQuotes = true;
+      else if(c === ','){ row.push(field); field=''; }
+      else if(c === '\r'){ /* ignora */ }
+      else if(c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
+      else field += c;
+    }
+  }
+  if(field.length>0 || row.length>0){ row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(cell => (cell||'').trim() !== ''));
+}
+
+/* ===================== NÚMERO BR ===================== */
+function parseNumBR(v){
+  if(v==null) return 0;
+  let s = String(v).trim();
+  if(s==='') return 0;
+  s = s.replace(/R\$\s?/gi,'').replace(/\s/g,'');
+  if(s.indexOf(',')>-1 && s.indexOf('.')>-1) s = s.replace(/\./g,'').replace(',', '.');
+  else if(s.indexOf(',')>-1) s = s.replace(',', '.');
+  const n = parseFloat(s);
+  return isNaN(n) ? 0 : n;
+}
+
+/* ===================== CABEÇALHO ===================== */
+function findHeader(matrix){
+  const limite = Math.min(matrix.length, 15);
+  for(let i=0;i<limite;i++){
+    const linha = matrix[i].map(c => (c||'').toLowerCase());
+    const temTipo = linha.some(c => c.includes('tipo'));
+    const temNome = linha.some(c => c.includes('empreendimento') || c.includes('nome'));
+    if(temTipo && temNome) return i;
+  }
+  return 0;
+}
+
+/* ===================== MONTA GRUPOS ===================== */
+function buildGroups(matrix){
+  const headerRow = findHeader(matrix);
+  console.log('HEADER na linha', headerRow, matrix[headerRow]);
+  console.log('TOTAL DE LINHAS:', matrix.length);
+
+  const groups = []; // [{ tipo, items:[...], subtotal:{...} }]
+  let current = null;
+
+  for(let i=headerRow+1;i<matrix.length;i++){
+    const r = matrix[i]; if(!r) continue;
+    const tipoCell = (r[0]||'').trim();
+    const nome = (r[1]||'').trim();
+    const isTotalRow = tipoCell && /total/i.test(tipoCell);
+
+    if(tipoCell && !isTotalRow){
+      current = { tipo: tipoCell, items: [], subtotal: null };
+      groups.push(current);
+    }
+
+    const linha = {
+      nome,
+      base: parseNumBR(r[2]),
+      parcelas: parseNumBR(r[3]),
+      encargos: parseNumBR(r[4]),
+      total: parseNumBR(r[5]),
+      hon20: parseNumBR(r[6]),
+      efic30: parseNumBR(r[7])
+    };
+
+    if(isTotalRow){
+      if(current) current.subtotal = linha;
+      continue;
+    }
+    if(!nome) continue;
+    if(!current){ current = { tipo:'Outros', items:[], subtotal:null }; groups.push(current); }
+    current.items.push(linha);
+  }
+
+  // fallback: se uma linha "Total" não veio na planilha, soma os itens
+  groups.forEach(g => {
+    if(!g.subtotal){
+      g.subtotal = g.items.reduce((acc,it) => ({
+        base: acc.base+it.base, parcelas: acc.parcelas+it.parcelas, encargos: acc.encargos+it.encargos,
+        total: acc.total+it.total, hon20: acc.hon20+it.hon20, efic30: acc.efic30+it.efic30
+      }), {base:0,parcelas:0,encargos:0,total:0,hon20:0,efic30:0});
+    }
+  });
+
+  return groups;
+}
+
+/* ===================== RENDER ===================== */
+function renderHero(groups){
+  const geral = groups.reduce((acc,g) => ({
+    base: acc.base+g.subtotal.base, total: acc.total+g.subtotal.total,
+    hon20: acc.hon20+g.subtotal.hon20, efic30: acc.efic30+g.subtotal.efic30
+  }), {base:0,total:0,hon20:0,efic30:0});
+
+  const cards = [];
+  cards.push(`<div class="pcard geral">
+    <div class="p-lab">Potencial Total Geral</div>
+    <div class="p-val">${BRL.format(geral.total)}</div>
+    <div class="p-sub"><span>Honorários 20%</span><b>${BRL.format(geral.hon20)}</b></div>
+    <div class="p-sub"><span>Eficiência 30%</span><b>${BRL.format(geral.efic30)}</b></div>
+  </div>`);
+
+  groups.forEach(g => {
+    cards.push(`<div class="pcard">
+      <div class="p-lab">${g.tipo}</div>
+      <div class="p-val">${BRL.format(g.subtotal.total)}</div>
+      <div class="p-sub"><span>Honorários 20%</span><b>${BRL.format(g.subtotal.hon20)}</b></div>
+      <div class="p-sub"><span>Base atual</span><b>${INT.format(g.subtotal.base)}</b></div>
+    </div>`);
+  });
+
+  $('#hero').innerHTML = cards.join('');
+}
+
+function renderTables(groups){
+  if(!groups.length){ $('#tables').innerHTML = '<div class="empty">Nenhum dado encontrado na planilha.</div>'; return; }
+  let html = '';
+  groups.forEach(g => {
+    html += `<div class="grpname"><span class="chip">${g.tipo}</span></div>`;
+    html += `<div class="tblwrap"><table><thead><tr>
+      <th>Empreendimento</th><th class="num">Base</th><th class="num">Parcelas/Taxas</th>
+      <th class="num">Encargos</th><th class="num">Total</th><th class="num">Honorários 20%</th><th class="num">Eficiência 30%</th>
+    </tr></thead><tbody>`;
+    g.items.forEach(it => {
+      html += `<tr>
+        <td>${it.nome}</td><td class="num">${INT.format(it.base)}</td>
+        <td class="num">${BRL.format(it.parcelas)}</td><td class="num">${BRL.format(it.encargos)}</td>
+        <td class="num">${BRL.format(it.total)}</td><td class="num">${BRL.format(it.hon20)}</td>
+        <td class="num">${BRL.format(it.efic30)}</td>
+      </tr>`;
+    });
+    html += `<tr class="subtotal">
+      <td class="tp">Total</td><td class="num">${INT.format(g.subtotal.base)}</td>
+      <td class="num">${BRL.format(g.subtotal.parcelas)}</td><td class="num">${BRL.format(g.subtotal.encargos)}</td>
+      <td class="num">${BRL.format(g.subtotal.total)}</td><td class="num">${BRL.format(g.subtotal.hon20)}</td>
+      <td class="num">${BRL.format(g.subtotal.efic30)}</td>
+    </tr>`;
+    html += '</tbody></table></div>';
+  });
+  $('#tables').innerHTML = html;
+}
+
+function setStatus(kind, msg){
+  const dotClass = kind==='ok' ? '' : kind==='load' ? 'load' : 'bad';
+  $('#status').innerHTML = `<span class="dot ${dotClass}"></span>${msg}`;
+}
+
+/* ===================== FLUXO PRINCIPAL ===================== */
+async function carregar(){
+  setStatus('load','Carregando planilha…');
+  try{
+    const csvText = await fetchSheetCSV();
+    const matrix = parseCSV(csvText);
+    const groups = buildGroups(matrix);
+    renderHero(groups);
+    renderTables(groups);
+    const now = new Date();
+    setStatus('ok', `<b>Atualizado</b> em ${now.toLocaleDateString('pt-BR')} às ${now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`);
+  }catch(err){
+    console.error(err);
+    setStatus('bad', 'Erro ao carregar a planilha.');
+    $('#tables').innerHTML = `<div class="err">${err.message}</div>`;
+  }
+}
+
+$('#btnRefresh').onclick = carregar;
+$('#btnTheme').onclick = () => {
+  const dark = document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme', dark?'light':'dark');
+  $('#btnTheme').textContent = dark?'🌙':'☀️';
+};
+
+carregar();
+</script>
+</body>
+</html>
