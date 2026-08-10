@@ -1,2 +1,2 @@
-# Potencial_honor-rios
+# Potencial_honorarios
 Potencial de honorários
